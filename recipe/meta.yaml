@@ -5,27 +5,29 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/i/ipybertin/ipybertin-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/i/ipybertin/ipybertin-{{ version }}.tar.gz
   sha256: 89252f6dbef635e94751863328d338d9af6fcb90699f11a08d4bf29a476a7964
 
 build:
-  number: 0
+  number: 1
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
-    - python >=3.6
+    - python {{ python_min }}
     - pip
     - nodejs
     - yarn
     - jupyterlab =3
     - jupyter-packaging
   run:
-    - python >=3.6
+    - python >={{ python_min }}
     - ipywidgets >=7.0.0
 
 test:
+  requires:
+    - python {{ python_min }}
   imports:
     - ipybertin
   commands:
